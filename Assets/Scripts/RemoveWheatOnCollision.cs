@@ -7,9 +7,8 @@ public class RemoveWheatOnCollision : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Tank"))
+        if (collider.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player collided with wheat");
             Destroy(gameObject);
         }
     }

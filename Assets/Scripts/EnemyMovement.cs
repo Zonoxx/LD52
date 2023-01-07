@@ -2,27 +2,25 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    private GameObject player;
     [SerializeField]
-    private GameObject playerPrefab;
-    private float enemyMovementSpeed = 10f;
+    private float enemyMovementSpeed = 2f;
 
-    void Start()
+    private void Start()
     {
-        //Rotate enemy towards player
-        Vector3 direction = playerPrefab.transform.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, direction);
-
+        player = GameObject.Find("Player");
     }
-
-    // Update is called once per frame
     private void Update()
     {
-        MoveEnemyTowardsPlayer();
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemyMovementSpeed * Time.deltaTime);
     }
 
-    private void MoveEnemyTowardsPlayer()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        transform.position = Vector2.MoveTowards(transform.position, playerPrefab.transform.position, 0.1f) * enemyMovementSpeed * Time.deltaTime;
+        Debug.Log("Collision with " + collision.gameObject.name + "With tag " + collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Outer Confiner"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

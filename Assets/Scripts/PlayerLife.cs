@@ -5,27 +5,22 @@ public class PlayerLife : MonoBehaviour
 {
     [SerializeField]
     public int lives;
-    // Start is called before the first frame update
-    void Start()
-    {
-        lives = 3;
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Lives: " + lives);
+
         if (other.gameObject.CompareTag("Enemy"))
         {
+            Destroy(other.gameObject);
             DecreaseLives();
+            Debug.Log("Lives: " + lives);
             if (lives <= 0)
             {
                 Destroy(gameObject);
                 //implement death animation
                 //transition to game over screen
             }
-        }
-        if (other.gameObject.CompareTag("Confiner"))
-        {
-            Destroy(gameObject);
         }
     }
 

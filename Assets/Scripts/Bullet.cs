@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -5,8 +6,6 @@ public class Bullet : MonoBehaviour
     private Vector3 mousePosition;
     private Camera mainCamera;
     private Rigidbody2D rb;
-    [SerializeField]
-    private Transform crossHairTransform;
     [SerializeField]
     private float bulletSpeed = 10f;
     private float timeAlive = 0f;
@@ -26,15 +25,27 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        DeleteBullet();
+        if (gameObject)
+        {
+            DeleteBulletAfterTime();
+        }
     }
 
-    private void DeleteBullet()
+    private void DeleteBulletAfterTime()
     {
         timeAlive += Time.deltaTime;
         if (timeAlive >= timeToLive)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }
