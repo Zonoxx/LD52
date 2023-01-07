@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -8,12 +6,13 @@ public class Bullet : MonoBehaviour
     private Camera mainCamera;
     private Rigidbody2D rb;
     [SerializeField]
+    private Transform crossHairTransform;
+    [SerializeField]
     private float bulletSpeed = 10f;
-    // Start is called before the first frame update
-
     private float timeAlive = 0f;
     private float timeToLive = 3f;
-    void Start()
+
+    private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
@@ -21,12 +20,11 @@ public class Bullet : MonoBehaviour
         Vector3 direction = mousePosition - transform.position;
         Vector3 rotation = transform.position - mousePosition;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * bulletSpeed;
-        // float bulletRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        // transform.rotation = Quaternion.Euler(0, 0, bulletRotation + 90);
+        float bulletRotation = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, bulletRotation + 90);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         DeleteBullet();
     }
