@@ -1,27 +1,41 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
     [SerializeField]
     public int lives;
 
+    [SerializeField]
+    private Text livesText;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Lives: " + lives);
-
         if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
+            //implement hit animation
             DecreaseLives();
-            Debug.Log("Lives: " + lives);
+            UpdatePlayerLivesText();
+
             if (lives <= 0)
             {
-                gameObject.isStatic = true;
-                //implement death animation
-                SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
+                EndGame();
             }
         }
+    }
+
+    private void EndGame()
+    {
+        gameObject.isStatic = true;
+        //implement death animation
+        SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
+    }
+
+    private void UpdatePlayerLivesText()
+    {
+        livesText.text = "Player Lives: " + lives;
     }
 
     public void IncreaseLives()
