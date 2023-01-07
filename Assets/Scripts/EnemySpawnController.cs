@@ -1,43 +1,56 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawnController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private Transform[] spawnPoints;
+    private Transform[] homingBirdSpawnPoints;
     private Transform spawnPoint;
     [SerializeField]
-    private GameObject playerPrefab;
-    [SerializeField]
-    private GameObject enemyPrefab;
+    private GameObject homingBird;
 
-    [SerializeField]
-    private float timeElapsed = 0f;
-    private float timeToSpawn = 0f;
-    [SerializeField]
-    private float spawnRate = 2f;
+    float delayAndSpawnRate = 2;
+    float timeUntilSpawnRateIncrease = 30;
 
-    private void Update()
+    void Start()
     {
-        SpawnEnemyBird();
+        // Start spawning homing birds
+        StartCoroutine(SpawnEnemy(delayAndSpawnRate, homingBird, homingBirdSpawnPoints));
     }
 
-    private void SpawnEnemyBird()
+    IEnumerator SpawnEnemy(float firstDelay, GameObject birdtype, Transform[] homingBirdSpawnPoints)
     {
-        timeElapsed += Time.deltaTime;
-        timeToSpawn = timeElapsed - spawnRate;
-        if (timeToSpawn >= 0)
+        float spawnRateCountdown = timeUntilSpawnRateIncrease;
+        float spawnCountdown = firstDelay;
+        while (true)
         {
-            var randomSpawnPoint = PickSpawnPoint();
-            timeElapsed = 0;
-            Instantiate(enemyPrefab, randomSpawnPoint.position, randomSpawnPoint.rotation);
+            yield return null;
+            spawnRateCountdown -= Time.deltaTime;
+            spawnCountdown -= Time.deltaTime;
+
+            // Should a new object be spawned?
+            if (spawnCountdown < 0)
+            {
+                spawnCountdown += delayAndSpawnRate;
+                var randomSpawnPoint = PickSpawnPoint(homingBirdSpawnPoints);
+                Instantiate(homingBird, randomSpawnPoint.position, randomSpawnPoint.rotation);
+            }
+
+            // Should the spawn rate increase?
+            if (spawnRateCountdown < 0 && delayAndSpawnRate > 1)
+            {
+                spawnRateCountdown += timeUntilSpawnRateIncrease;
+                delayAndSpawnRate -= 0.1f;
+            }
         }
     }
 
-    private Transform PickSpawnPoint()
+    private Transform PickSpawnPoint(Transform[] spawnPoints)
     {
         int randomSpawnPoint = UnityEngine.Random.Range(0, spawnPoints.Length);
         return spawnPoints[randomSpawnPoint];
     }
+
 }
