@@ -23,14 +23,18 @@ public class PlayerLife : MonoBehaviour
                 //transition to game over screen
             }
         }
+        if (other.gameObject.CompareTag("Confiner"))
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void IncreaseLives()
+    public void IncreaseLives()
     {
         lives++;
     }
 
-    private void DecreaseLives()
+    public void DecreaseLives()
     {
         lives--;
     }

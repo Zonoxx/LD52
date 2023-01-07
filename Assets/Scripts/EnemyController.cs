@@ -1,41 +1,69 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
+    private Transform[] spawnPoints;
     private Transform spawnPoint;
     [SerializeField]
-    private GameObject enemyPrefab;
+    private GameObject playerPrefab;
     [SerializeField]
-    private GameObject player;
+    private GameObject enemyPrefab;
     private float enemyMovementSpeed = 10f;
 
-    void Start()
+    [SerializeField]
+    private float timeElapsed = 0f;
+    private float timeToSpawn = 0f;
+    [SerializeField]
+    private float spawnRate = 2f;
+
+    private GameObject SpawnEnemyBird()
     {
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        timeElapsed += Time.deltaTime;
+        timeToSpawn = timeElapsed - spawnRate;
+        if (timeToSpawn >= 0)
+        {
+            Debug.Log("Spawn");
+            var randomSpawnPoint = PickSpawnPoint();
+            timeElapsed = 0;
+            return Instantiate(enemyPrefab, randomSpawnPoint.position, randomSpawnPoint.rotation);
+        }
+        return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    private Transform PickSpawnPoint()
     {
-        MoveTowardsPlayer();
+        int randomSpawnPoint = UnityEngine.Random.Range(0, spawnPoints.Length);
+        return spawnPoints[randomSpawnPoint];
     }
 
-    private void MoveTowardsPlayer()
+    private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 0.1f) * enemyMovementSpeed * Time.deltaTime;
+        var enemy = SpawnEnemyBird();
+        if (enemy != null)
+        {
+            MoveEnemyTowardsPlayer(enemy);
+        }
+    }
+
+    private void MoveEnemyTowardsPlayer(GameObject enemy)
+    {
+        enemy.transform.position = Vector2.MoveTowards(transform.position, playerPrefab.transform.position, 0.1f) * enemyMovementSpeed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Confiner")
+        if (collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Confiner")
         {
-            Destroy(gameObject);
+            Destroy(enemyPrefab);
+        }
+
+        if (collision.gameObject.tag == "Player")
+        {
+            GameObject player = collision.gameObject;
+            player.GetComponent<PlayerLife>().DecreaseLives();
         }
     }
 }
