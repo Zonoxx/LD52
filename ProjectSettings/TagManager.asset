@@ -8,6 +8,7 @@ TagManager:
   - Wheat
   - Tank
   - CrossHair
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,9 @@ TagManager:
     locked: 0
   - name: Wheat
     uniqueID: 1418419425
+    locked: 0
+  - name: Fence
+    uniqueID: 338433959
     locked: 0
   - name: Tank
     uniqueID: 1818480653
