@@ -7,7 +7,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private SpriteRenderer playerSpriteRenderer;
 
-    void Update()
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
+
+    private void Update()
     {
         CheckForPlayerInput();
     }

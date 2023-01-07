@@ -19,7 +19,7 @@ public class HarvestScore : MonoBehaviour
         if (collision.gameObject.CompareTag("Wheat"))
         {
             score += 5;
-            scoreText.text = "Harvested Wheat: " + score;
+            scoreText.text = "Harvest Score: " + score;
         }
     }
 }

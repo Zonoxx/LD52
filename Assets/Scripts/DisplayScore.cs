@@ -7,21 +7,22 @@ public class DisplayScore : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI scoreText;
+    [SerializeField]
     private TextMeshProUGUI highScoreText;
     // Start is called before the first frame update
     private void Start()
     {
         var gameScore = PlayerPrefs.GetInt("HarvestScore");
         var highScore = PlayerPrefs.GetInt("BestScore");
-        scoreText.text = "Harvested Wheat: " + PlayerPrefs.GetInt("HarvestScore");
+        scoreText.text = "Harvest Yield: " + PlayerPrefs.GetInt("HarvestScore");
         if (gameScore > highScore)
         {
             PlayerPrefs.SetInt("BestScore", gameScore);
-            highScoreText.text = "This is a new high score!";
+            highScoreText.text = "This is a new personal best!";
         }
         else
         {
-            highScoreText.text = "Your current best score: " + PlayerPrefs.GetInt("BestScore");
+            highScoreText.text = "Your best yield was: " + PlayerPrefs.GetInt("BestScore");
         }
     }
 }
