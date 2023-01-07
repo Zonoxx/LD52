@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
@@ -17,9 +17,9 @@ public class PlayerLife : MonoBehaviour
             Debug.Log("Lives: " + lives);
             if (lives <= 0)
             {
-                Destroy(gameObject);
+                gameObject.isStatic = true;
                 //implement death animation
-                //transition to game over screen
+                SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
             }
         }
     }
