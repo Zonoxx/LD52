@@ -10,12 +10,12 @@ public class PlayerLife : MonoBehaviour
 
     [SerializeField]
     private Text livesText;
+    [SerializeField]
+    private Animator animator;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
-            //implement hit animation
             DecreaseLives();
             UpdatePlayerLivesText();
 
@@ -28,8 +28,15 @@ public class PlayerLife : MonoBehaviour
 
     private void EndGame()
     {
+        animator.SetTrigger("PlayerDeath");
         gameObject.isStatic = true;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
         //implement death animation
+        Invoke("ChangeToEndScreen", 1);
+    }
+
+    private void ChangeToEndScreen()
+    {
         SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
     }
 

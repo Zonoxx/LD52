@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2222378032645618575}
   - component: {fileID: 1149678072457200738}
   - component: {fileID: 4016249161443058425}
+  - component: {fileID: -1763677567694142547}
   m_Layer: 0
   m_Name: BirdEnemy
   m_TagString: Enemy
@@ -125,3 +126,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovementSpeed: 2
+--- !u!95 &-1763677567694142547
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222378032645618569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5f900305c1c45074e935a484f2e75ef1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
