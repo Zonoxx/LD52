@@ -136,4 +136,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa14d3aa2139bf641a2725ee2db065d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
+  crossHairTransform: {fileID: 0}
+  bulletSpeed: 20
