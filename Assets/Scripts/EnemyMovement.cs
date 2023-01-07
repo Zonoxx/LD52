@@ -7,14 +7,37 @@ public class EnemyMovement : MonoBehaviour
     private float enemyMovementSpeed = 2f;
     private Animator animator;
 
+    private bool isFlipped;
+
     private void Start()
     {
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
+        if (player.transform.position.x < transform.position.x)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+            isFlipped = true;
+        }
     }
     private void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemyMovementSpeed * Time.deltaTime);
+        if (player.transform.position.x < transform.position.x)
+        {
+            if (!isFlipped)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                isFlipped = true;
+            }
+        }
+        else
+        {
+            if (isFlipped)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                isFlipped = false;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
