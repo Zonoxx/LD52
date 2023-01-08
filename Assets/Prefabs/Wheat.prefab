@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 149788294096933538}
   - component: {fileID: 149788294096933537}
   - component: {fileID: 149788294096933539}
+  - component: {fileID: 9165701003610592564}
   m_Layer: 0
   m_Name: Wheat
   m_TagString: Wheat
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 1418419425
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 420859fd29b810247be3c5bf43c8df26, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79b101219f36f0649932eb0509f378cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +103,7 @@ BoxCollider2D:
   m_Offset: {x: 0.01709652, y: -0.017094612}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     oldSize: {x: 1, y: 1.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -122,5 +123,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0872d8d877692754db4f3af2f58c493f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9165701003610592564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149788294096933543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f62df41de4a444a83f7130fc84c602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
