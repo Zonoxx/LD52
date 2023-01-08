@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HomingBirdBehavior : EnemyBehavior
 {
+    private float homingBirdMovementSpeed = 4f;
     protected override void Start()
     {
         base.Start();
@@ -11,7 +12,7 @@ public class HomingBirdBehavior : EnemyBehavior
 
     private void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, enemyMovementSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, homingBirdMovementSpeed * Time.deltaTime);
         if (player.transform.position.x < transform.position.x)
         {
             if (!isFlipped)

@@ -2,17 +2,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 5f;
+    public float speed = 5f;
     [SerializeField]
     private SpriteRenderer playerSpriteRenderer;
     [SerializeField]
     private Animator animator;
-
-    private void Start()
-    {
-        Cursor.visible = false;
-    }
 
     private void Update()
     {
@@ -55,21 +49,21 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Vector3.right * speed * Time.deltaTime);
             if (!playerSpriteRenderer.flipX)
             {
-
                 playerSpriteRenderer.flipX = true;
             }
             animator.SetBool("isMoving", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            var allWheats = GameObject.FindGameObjectsWithTag("Wheat");
-            foreach (var wheat in allWheats)
-            {
-                wheat.GetComponent<SpriteRenderer>().enabled = false;
-                wheat.GetComponent<BoxCollider2D>().enabled = false;
-                wheat.tag = "Inactive";
-            }
-        }
+
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     var allWheats = GameObject.FindGameObjectsWithTag("Wheat");
+        //     foreach (var wheat in allWheats)
+        //     {
+        //         wheat.GetComponent<SpriteRenderer>().enabled = false;
+        //         wheat.GetComponent<BoxCollider2D>().enabled = false;
+        //         wheat.tag = "Inactive";
+        //     }
+        // }
     }
 }

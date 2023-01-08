@@ -63,6 +63,7 @@ public class RespawnHarvest : MonoBehaviour
         IncreaseEnemySpawns();
         DoublePlayerFireRate();
         DoubleHarvestYield();
+        IncreasePlayerMovementSpeed();
     }
 
     private void DoubleHarvestYield()
@@ -94,8 +95,13 @@ public class RespawnHarvest : MonoBehaviour
     private void IncreaseEnemySpawns()
     {
         EnemySpawnController spawnController = this.spawnController.GetComponent<EnemySpawnController>();
-        spawnController.AddHomingBirdSpawner();
-        spawnController.AddLinePLayerBirdSpawner();
-        spawnController.AddLineBirdSpawner();
+        spawnController.AddAllBirdSpawnersOnce();
+        spawnController.AddAllBirdSpawnersOnce();
+    }
+
+    private void IncreasePlayerMovementSpeed()
+    {
+        PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
+        playerMovement.speed *= 1.5f;
     }
 }

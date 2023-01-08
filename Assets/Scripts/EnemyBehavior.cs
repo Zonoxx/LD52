@@ -3,8 +3,6 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     protected GameObject player;
-    [SerializeField]
-    protected float enemyMovementSpeed = 2f;
     protected Animator animator;
 
     protected bool isFlipped;
