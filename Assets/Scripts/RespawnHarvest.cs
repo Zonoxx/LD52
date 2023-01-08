@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -10,11 +11,11 @@ public class RespawnHarvest : MonoBehaviour
     private TextMeshProUGUI harvestTimeText;
     [SerializeField]
     private TextMeshProUGUI everythingDoubledText;
-    private bool respawnHasHappened;
+    private bool resetInProgress;
 
     private void Start()
     {
-        respawnHasHappened = false;
+        resetInProgress = false;
         DisableHarvestTimeTexts();
 
     }
@@ -23,39 +24,38 @@ public class RespawnHarvest : MonoBehaviour
     {
         var activeWheat = GameObject.FindGameObjectsWithTag("Wheat");
 
-
-        if (activeWheat.Length == 0 && !respawnHasHappened)
+        if (activeWheat.Length == 0 && !resetInProgress)
         {
-            StartCoroutine(RespawnWheat());
+            resetInProgress = true;
             EnableHarvestTimeTexts();
-        }
-
-
-        if (respawnHasHappened)
-        {
-            Debug.Log("Resetting");
-            ResetRespawn();
-            HarvestTime();
-            StartCoroutine(DelayedDisableHarvestTimeTexts());
+            StartCoroutine(HarvestTime());
+            StartCoroutine(ResetAndHarvestTime());
+            StartCoroutine(RespawnWheat());
         }
     }
 
+    IEnumerator ResetAndHarvestTime()
+    {
+        yield return new WaitForSeconds(4);
+        DisableHarvestTimeTexts();
+    }
 
     private IEnumerator RespawnWheat()
     {
         var inactiveWheat = GameObject.FindGameObjectsWithTag("Inactive");
+        yield return new WaitForSeconds(3);
         foreach (var wheat in inactiveWheat)
         {
             wheat.GetComponent<SpriteRenderer>().enabled = true;
             wheat.GetComponent<BoxCollider2D>().enabled = true;
             wheat.tag = "Wheat";
         }
-        respawnHasHappened = true;
-        yield return null;
+        resetInProgress = false;
     }
 
-    private void HarvestTime()
+    private IEnumerator HarvestTime()
     {
+        yield return new WaitForSeconds(2);
         Debug.Log("Harvest Time!");
         DoubleEnemySpawnRate();
         DoublePlayerFireRate();
@@ -72,12 +72,6 @@ public class RespawnHarvest : MonoBehaviour
     {
         harvestTimeText.enabled = true;
         everythingDoubledText.enabled = true;
-    }
-
-    private IEnumerator DelayedDisableHarvestTimeTexts()
-    {
-        yield return new WaitForSeconds(3);
-        DisableHarvestTimeTexts();
     }
 
     private void DisableHarvestTimeTexts()
@@ -98,10 +92,5 @@ public class RespawnHarvest : MonoBehaviour
         EnemySpawnController spawnController = this.spawnController.GetComponent<EnemySpawnController>();
         spawnController.currentSpawnRate = 2f;
         spawnController.timeUntilSpawnRateIncrease *= 0.5f;
-    }
-
-    private void ResetRespawn()
-    {
-        respawnHasHappened = false;
     }
 }
