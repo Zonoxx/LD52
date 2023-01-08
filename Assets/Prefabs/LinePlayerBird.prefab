@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1763677567694142547, guid: 4b059c9511db31e48a09176f5e9f5eb1, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 18e21781bf3a5524895ec628774ebc8e, type: 2}
     - target: {fileID: 2222378032645618569, guid: 4b059c9511db31e48a09176f5e9f5eb1, type: 3}
       propertyPath: m_Name
       value: LinePlayerBird
