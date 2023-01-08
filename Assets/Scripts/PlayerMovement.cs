@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
     private float speed = 5f;
     [SerializeField]
     private SpriteRenderer playerSpriteRenderer;
+    [SerializeField]
+    private Animator animator;
 
     private void Start()
     {
@@ -15,6 +17,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         CheckForPlayerInput();
+        CheckForIdle();
+    }
+
+    private void CheckForIdle()
+    {
+        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            animator.SetBool("isMoving", false);
+        }
     }
 
     private void CheckForPlayerInput()
@@ -22,10 +33,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             transform.Translate(Vector3.up * speed * Time.deltaTime);
+            animator.SetBool("isMoving", true);
         }
         if (Input.GetKey(KeyCode.S))
         {
             transform.Translate(Vector3.down * speed * Time.deltaTime);
+            animator.SetBool("isMoving", true);
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -35,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
 
                 playerSpriteRenderer.flipX = false;
             }
+            animator.SetBool("isMoving", true);
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -44,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
                 playerSpriteRenderer.flipX = true;
             }
+            animator.SetBool("isMoving", true);
         }
 
         if (Input.GetKey(KeyCode.R))
