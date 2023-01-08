@@ -9,7 +9,7 @@ public class RemoveWheatOnCollision : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
