@@ -94,9 +94,7 @@ public class RespawnHarvest : MonoBehaviour
     private void IncreaseEnemySpawns()
     {
         EnemySpawnController spawnController = this.spawnController.GetComponent<EnemySpawnController>();
-        if (spawnController.newSpawnerRate >= 1.1f)
-        {
-            spawnController.newSpawnerRate -= 0.5f;
-        }
+        spawnController.AddHomingBirdSpawner();
+        spawnController.AddLinePLayerBirdSpawner();
     }
 }

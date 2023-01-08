@@ -12,10 +12,15 @@ public class EnemySpawnController : MonoBehaviour
     [SerializeField]
     private GameObject homingBird;
 
-    public float currentSpawnRate = 5.0f;
-    public float timeUntilSpawnRateIncrease = 30f;
+    [SerializeField]
+    private GameObject lineBird;
+
+    [SerializeField]
+    private GameObject linePlayerBird;
+
     private float spawnRateHomingBird = 6f;
-    public float newSpawnerRate = 5.0f;
+    private float spawnRateLineBird = 6f;
+    private float spawnRateLinePlayerBird = 6f;
     List<Coroutine> activeSpawners = new List<Coroutine>();
 
     // (x1, x2, y1, y2) 
@@ -30,12 +35,18 @@ public class EnemySpawnController : MonoBehaviour
 
         AddHomingBirdSpawner();
         AddHomingBirdSpawner();
-        AddHomingBirdSpawner();
+        AddLinePLayerBirdSpawner();
     }
 
     public void AddHomingBirdSpawner()
     {
         activeSpawners.Add(StartCoroutine(BirdSpawner(homingBird, spawnRateHomingBird)));
+    }
+
+
+    public void AddLinePLayerBirdSpawner()
+    {
+        activeSpawners.Add(StartCoroutine(BirdSpawner(linePlayerBird, spawnRateLinePlayerBird)));
     }
 
     private Vector3 getRandomSpawnPoint()

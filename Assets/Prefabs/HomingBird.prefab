@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2222378032645618572}
   - component: {fileID: 2222378032645618575}
   - component: {fileID: 1149678072457200738}
-  - component: {fileID: 4016249161443058425}
   - component: {fileID: -1763677567694142547}
   - component: {fileID: 1729635236031040110}
+  - component: {fileID: -8896215675103188888}
   m_Layer: 0
   m_Name: HomingBird
   m_TagString: Enemy
@@ -114,19 +114,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.808014, y: 1.3025057}
   m_EdgeRadius: 0
---- !u!114 &4016249161443058425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2222378032645618569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ecac288fbd59d46ba012a4e007f995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyMovementSpeed: 2
 --- !u!95 &-1763677567694142547
 Animator:
   serializedVersion: 5
@@ -243,3 +230,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-8896215675103188888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2222378032645618569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3db12baecab424e9e8db10ae5ab173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMovementSpeed: 2
