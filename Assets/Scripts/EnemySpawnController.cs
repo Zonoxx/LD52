@@ -24,17 +24,17 @@ public class EnemySpawnController : MonoBehaviour
     List<Coroutine> activeSpawners = new List<Coroutine>();
 
     // (x1, x2, y1, y2) 
-    private (int, int, int, int)[] spawnerBoundaries = new[] { (-35, 40, 24, 26), (-15, -12, -25, 22), (-80, -15, -28, -25), (-25, -23, -25, 22) };
+    private (int, int, int, int)[] spawnerBoundaries = new[] { (-20, 40, 24, 26), (43, 45, -20, 20), (-18, 38, -26, -23), (-25, -23, -20, 20) };
 
     void Start()
     {
         // Spawn some birds on game start right away
         Instantiate(homingBird, new Vector3(9, 8, 0.0f), Quaternion.identity);
-        Instantiate(homingBird, new Vector3(43, 10, 0.0f), Quaternion.identity);
-        Instantiate(homingBird, new Vector3(-20, -20, 0.0f), Quaternion.identity);
+        Instantiate(lineBird, new Vector3(43, 10, 0.0f), Quaternion.identity);
+        Instantiate(linePlayerBird, new Vector3(-20, -20, 0.0f), Quaternion.identity);
 
         AddHomingBirdSpawner();
-        AddHomingBirdSpawner();
+        AddLineBirdSpawner();
         AddLinePLayerBirdSpawner();
     }
 
@@ -43,6 +43,10 @@ public class EnemySpawnController : MonoBehaviour
         activeSpawners.Add(StartCoroutine(BirdSpawner(homingBird, spawnRateHomingBird)));
     }
 
+    public void AddLineBirdSpawner()
+    {
+        activeSpawners.Add(StartCoroutine(BirdSpawner(lineBird, spawnRateLineBird)));
+    }
 
     public void AddLinePLayerBirdSpawner()
     {

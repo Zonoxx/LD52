@@ -96,5 +96,6 @@ public class RespawnHarvest : MonoBehaviour
         EnemySpawnController spawnController = this.spawnController.GetComponent<EnemySpawnController>();
         spawnController.AddHomingBirdSpawner();
         spawnController.AddLinePLayerBirdSpawner();
+        spawnController.AddLineBirdSpawner();
     }
 }
