@@ -12,43 +12,36 @@ public class RespawnHarvest : MonoBehaviour
     private TextMeshProUGUI everythingDoubledText;
     private bool respawnHasHappened;
 
-    private float timer = 2f;
     private void Start()
     {
         respawnHasHappened = false;
+        DisableHarvestTimeTexts();
+
     }
 
     private void Update()
     {
         var activeWheat = GameObject.FindGameObjectsWithTag("Wheat");
-        var inactiveWheat = GameObject.FindGameObjectsWithTag("Inactive");
+
 
         if (activeWheat.Length == 0 && !respawnHasHappened)
         {
-            Debug.Log(activeWheat.Length);
-            RespawnWheat();
+            StartCoroutine(RespawnWheat());
             EnableHarvestTimeTexts();
-            respawnHasHappened = true;
         }
 
 
         if (respawnHasHappened)
         {
-            Debug.Log(inactiveWheat.Length);
-            timer -= Time.deltaTime;
-            if (timer <= 0 && inactiveWheat.Length == 0)
-            {
-                Debug.Log("Resetting");
-                ResetRespawn();
-                HarvestTime();
-                DisableHarvestTimeTexts();
-                timer = 2f;
-            }
+            Debug.Log("Resetting");
+            ResetRespawn();
+            HarvestTime();
+            StartCoroutine(DelayedDisableHarvestTimeTexts());
         }
     }
 
 
-    private void RespawnWheat()
+    private IEnumerator RespawnWheat()
     {
         var inactiveWheat = GameObject.FindGameObjectsWithTag("Inactive");
         foreach (var wheat in inactiveWheat)
@@ -57,6 +50,8 @@ public class RespawnHarvest : MonoBehaviour
             wheat.GetComponent<BoxCollider2D>().enabled = true;
             wheat.tag = "Wheat";
         }
+        respawnHasHappened = true;
+        yield return null;
     }
 
     private void HarvestTime()
@@ -79,11 +74,18 @@ public class RespawnHarvest : MonoBehaviour
         everythingDoubledText.enabled = true;
     }
 
+    private IEnumerator DelayedDisableHarvestTimeTexts()
+    {
+        yield return new WaitForSeconds(3);
+        DisableHarvestTimeTexts();
+    }
+
     private void DisableHarvestTimeTexts()
     {
         harvestTimeText.enabled = false;
         everythingDoubledText.enabled = false;
     }
+
 
     private void DoublePlayerFireRate()
     {

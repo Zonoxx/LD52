@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isMoving", true);
         }
 
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             var allWheats = GameObject.FindGameObjectsWithTag("Wheat");
             foreach (var wheat in allWheats)
