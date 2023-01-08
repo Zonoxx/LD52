@@ -14,7 +14,20 @@ public class PlayerLife : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private AudioSource explosionAudio;
+    [SerializeField]
+    private AudioSource mainThemeAudio;
 
+    private void Start()
+    {
+        lives = 3;
+        UpdatePlayerLivesText();
+        Invoke("PlayMainTheme", 2);
+    }
+
+    private void PlayMainTheme()
+    {
+        mainThemeAudio.Play();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
