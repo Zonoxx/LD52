@@ -20,7 +20,7 @@ public class EnemySpawnController : MonoBehaviour
         StartCoroutine(SpawnEnemy(currentSpawnRate, homingBird, homingBirdSpawnPoints));
     }
 
-    IEnumerator SpawnEnemy(float firstDelay, GameObject birdtype, Transform[] homingBirdSpawnPoints)
+    private IEnumerator SpawnEnemy(float firstDelay, GameObject birdtype, Transform[] homingBirdSpawnPoints)
     {
         float spawnRateCountdown = timeUntilSpawnRateIncrease;
         float spawnCountdown = firstDelay;

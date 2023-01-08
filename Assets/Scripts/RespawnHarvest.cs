@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -21,31 +20,33 @@ public class RespawnHarvest : MonoBehaviour
 
     private void Update()
     {
+        var activeWheat = GameObject.FindGameObjectsWithTag("Wheat");
+        var inactiveWheat = GameObject.FindGameObjectsWithTag("Inactive");
 
-        if (!respawnHasHappened)
+        if (activeWheat.Length == 0 && !respawnHasHappened)
         {
-            var activeWheat = GameObject.FindGameObjectsWithTag("Wheat");
-            if (activeWheat.Count() == 0)
-            {
-                RespawnWheat();
-                EnableHarvestTimeTexts();
-                respawnHasHappened = true;
-            }
-
+            Debug.Log(activeWheat.Length);
+            RespawnWheat();
+            EnableHarvestTimeTexts();
+            respawnHasHappened = true;
         }
-        else if (respawnHasHappened)
-        {
-            var inactiveWheat = GameObject.FindGameObjectsWithTag("Inactive");
 
-            if (inactiveWheat.Count() == 0)
+
+        if (respawnHasHappened)
+        {
+            Debug.Log(inactiveWheat.Length);
+            timer -= Time.deltaTime;
+            if (timer <= 0 && inactiveWheat.Length == 0)
             {
                 Debug.Log("Resetting");
                 ResetRespawn();
                 HarvestTime();
                 DisableHarvestTimeTexts();
+                timer = 2f;
             }
         }
     }
+
 
     private void RespawnWheat()
     {
