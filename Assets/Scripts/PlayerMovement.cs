@@ -45,5 +45,16 @@ public class PlayerMovement : MonoBehaviour
                 playerSpriteRenderer.flipX = true;
             }
         }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            var allWheats = GameObject.FindGameObjectsWithTag("Wheat");
+            foreach (var wheat in allWheats)
+            {
+                wheat.GetComponent<SpriteRenderer>().enabled = false;
+                wheat.GetComponent<BoxCollider2D>().enabled = false;
+                wheat.tag = "Inactive";
+            }
+        }
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class HarvestScore : MonoBehaviour
 {
-    public int score = 0;
+    private int score = 0;
+    public int ScorePerWheat = 5;
     [SerializeField]
     private TextMeshProUGUI scoreText;
 
@@ -18,8 +19,8 @@ public class HarvestScore : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wheat"))
         {
-            score += 5;
-            scoreText.text = "Harvest Score: " + score;
+            score += ScorePerWheat;
+            scoreText.text = "Harvest Yield: " + score;
         }
     }
 }

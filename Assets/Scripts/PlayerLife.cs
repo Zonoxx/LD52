@@ -9,7 +9,7 @@ public class PlayerLife : MonoBehaviour
     public int lives;
 
     [SerializeField]
-    private Text livesText;
+    private TextMeshProUGUI livesText;
     [SerializeField]
     private Animator animator;
     private void OnTriggerEnter2D(Collider2D other)
@@ -29,9 +29,8 @@ public class PlayerLife : MonoBehaviour
     private void EndGame()
     {
         animator.SetTrigger("PlayerDeath");
-        gameObject.isStatic = true;
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
-        //implement death animation
         Invoke("ChangeToEndScreen", 1);
     }
 
@@ -42,7 +41,7 @@ public class PlayerLife : MonoBehaviour
 
     private void UpdatePlayerLivesText()
     {
-        livesText.text = "Player Lives: " + lives;
+        livesText.text = "Lives: " + lives;
     }
 
     public void IncreaseLives()

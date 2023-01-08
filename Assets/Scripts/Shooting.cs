@@ -12,8 +12,7 @@ public class Shooting : MonoBehaviour
     private Transform bulletTransform;
     private bool canFire;
     private float timer;
-    [SerializeField]
-    private float timeBetweenShots;
+    public float timeBetweenShots = 0.5f;
 
 
     // Start is called before the first frame update

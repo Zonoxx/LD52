@@ -11,13 +11,13 @@ public class EnemySpawnController : MonoBehaviour
     [SerializeField]
     private GameObject homingBird;
 
-    float delayAndSpawnRate = 2;
-    float timeUntilSpawnRateIncrease = 30;
+    public float currentSpawnRate = 2;
+    public float timeUntilSpawnRateIncrease = 30;
 
     void Start()
     {
         // Start spawning homing birds
-        StartCoroutine(SpawnEnemy(delayAndSpawnRate, homingBird, homingBirdSpawnPoints));
+        StartCoroutine(SpawnEnemy(currentSpawnRate, homingBird, homingBirdSpawnPoints));
     }
 
     IEnumerator SpawnEnemy(float firstDelay, GameObject birdtype, Transform[] homingBirdSpawnPoints)
@@ -33,16 +33,16 @@ public class EnemySpawnController : MonoBehaviour
             // Should a new object be spawned?
             if (spawnCountdown < 0)
             {
-                spawnCountdown += delayAndSpawnRate;
+                spawnCountdown += currentSpawnRate;
                 var randomSpawnPoint = PickSpawnPoint(homingBirdSpawnPoints);
                 Instantiate(homingBird, randomSpawnPoint.position, randomSpawnPoint.rotation);
             }
 
             // Should the spawn rate increase?
-            if (spawnRateCountdown < 0 && delayAndSpawnRate > 1)
+            if (spawnRateCountdown < 0 && currentSpawnRate > 1)
             {
                 spawnRateCountdown += timeUntilSpawnRateIncrease;
-                delayAndSpawnRate -= 0.1f;
+                currentSpawnRate -= 0.1f;
             }
         }
     }

@@ -9,7 +9,7 @@ public class DisplayScore : MonoBehaviour
     private TextMeshProUGUI scoreText;
     [SerializeField]
     private TextMeshProUGUI highScoreText;
-    // Start is called before the first frame update
+
     private void Start()
     {
         var gameScore = PlayerPrefs.GetInt("HarvestScore");
@@ -22,7 +22,7 @@ public class DisplayScore : MonoBehaviour
         }
         else
         {
-            highScoreText.text = "Your best yield was: " + PlayerPrefs.GetInt("BestScore");
+            highScoreText.text = "Your highest yield was: " + PlayerPrefs.GetInt("BestScore");
         }
     }
 }
