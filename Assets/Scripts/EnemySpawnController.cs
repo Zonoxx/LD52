@@ -23,33 +23,36 @@ public class EnemySpawnController : MonoBehaviour
 
     void Start()
     {
-        // Start spawning homing birds
+        // Spawn some birds on game start right away
         Instantiate(homingBird, new Vector3(9, 8, 0.0f), Quaternion.identity);
         Instantiate(homingBird, new Vector3(43, 10, 0.0f), Quaternion.identity);
         Instantiate(homingBird, new Vector3(-20, -20, 0.0f), Quaternion.identity);
-        activeSpawners.Add(StartCoroutine(BirdSpawner(homingBird, new Vector3(0, 40, 0.0f), spawnRateHomingBird)));
-        StartCoroutine(SpawnpointAdder(homingBird, newSpawnerRate));
+
+        AddHomingBirdSpawner();
+        AddHomingBirdSpawner();
+        AddHomingBirdSpawner();
     }
 
-    private IEnumerator SpawnpointAdder(GameObject birdtype, float delay)
+    public void AddHomingBirdSpawner()
+    {
+        activeSpawners.Add(StartCoroutine(BirdSpawner(homingBird, spawnRateHomingBird)));
+    }
+
+    private Vector3 getRandomSpawnPoint()
+    {
+        int idx = UnityEngine.Random.Range(0, this.spawnerBoundaries.Length);
+        var boundaries = this.spawnerBoundaries[idx];
+        float xVal = UnityEngine.Random.Range(boundaries.Item1, boundaries.Item2);
+        float yVal = UnityEngine.Random.Range(boundaries.Item3, boundaries.Item4);
+        return new Vector3(xVal, yVal, 0.0f);
+    }
+
+    private IEnumerator BirdSpawner(GameObject birdtype, float delay)
     {
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            int idx = UnityEngine.Random.Range(0, this.spawnerBoundaries.Length);
-            var boundaries = this.spawnerBoundaries[idx];
-            float xVal = UnityEngine.Random.Range(boundaries.Item1, boundaries.Item2);
-            float yVal = UnityEngine.Random.Range(boundaries.Item3, boundaries.Item4);
-            activeSpawners.Add(StartCoroutine(BirdSpawner(birdtype, new Vector3(xVal, yVal, 0.0f), spawnRateHomingBird)));
-        }
-    }
-
-    private IEnumerator BirdSpawner(GameObject birdtype, Vector3 spawnPoint, float delay)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(delay);
-            Instantiate(birdtype, spawnPoint, Quaternion.identity);
+            Instantiate(birdtype, getRandomSpawnPoint(), Quaternion.identity);
         }
     }
 
