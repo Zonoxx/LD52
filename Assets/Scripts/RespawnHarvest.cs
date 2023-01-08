@@ -60,7 +60,7 @@ public class RespawnHarvest : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Debug.Log("Harvest Time!");
-        DoubleEnemySpawnRate();
+        IncreaseEnemySpawns();
         DoublePlayerFireRate();
         DoubleHarvestYield();
     }
@@ -91,10 +91,12 @@ public class RespawnHarvest : MonoBehaviour
         shooting.timeBetweenShots *= 0.5f;
     }
 
-    private void DoubleEnemySpawnRate()
+    private void IncreaseEnemySpawns()
     {
         EnemySpawnController spawnController = this.spawnController.GetComponent<EnemySpawnController>();
-        spawnController.currentSpawnRate = 2f;
-        spawnController.timeUntilSpawnRateIncrease *= 0.5f;
+        if (spawnController.newSpawnerRate >= 1.1f)
+        {
+            spawnController.newSpawnerRate -= 0.5f;
+        }
     }
 }
