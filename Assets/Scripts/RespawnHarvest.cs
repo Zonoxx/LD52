@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+
 using TMPro;
 using UnityEngine;
 
@@ -12,9 +12,12 @@ public class RespawnHarvest : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI everythingDoubledText;
     private bool resetInProgress;
+    [SerializeField]
+    private AudioSource audioSource;
 
     private void Start()
     {
+        //audioSource = GetComponent<AudioSource>();
         resetInProgress = false;
         DisableHarvestTimeTexts();
 
@@ -70,6 +73,7 @@ public class RespawnHarvest : MonoBehaviour
 
     private void EnableHarvestTimeTexts()
     {
+        audioSource.Play();
         harvestTimeText.enabled = true;
         everythingDoubledText.enabled = true;
     }

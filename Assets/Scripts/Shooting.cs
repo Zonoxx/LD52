@@ -13,11 +13,13 @@ public class Shooting : MonoBehaviour
     private bool canFire;
     private float timer;
     public float timeBetweenShots = 0.5f;
+    public AudioSource audioSource;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         canFire = true;
     }
@@ -55,6 +57,7 @@ public class Shooting : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && canFire)
         {
+            audioSource.Play();
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }

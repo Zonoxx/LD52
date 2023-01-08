@@ -12,6 +12,10 @@ public class PlayerLife : MonoBehaviour
     private TextMeshProUGUI livesText;
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private AudioSource explosionAudio;
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -28,10 +32,11 @@ public class PlayerLife : MonoBehaviour
 
     private void EndGame()
     {
+        explosionAudio.Play();
         animator.SetTrigger("PlayerDeath");
         gameObject.GetComponent<PlayerMovement>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
-        Invoke("ChangeToEndScreen", 1);
+        Invoke("ChangeToEndScreen", 2);
     }
 
     private void ChangeToEndScreen()

@@ -48,6 +48,7 @@ MonoBehaviour:
   bullet: {fileID: 7203653059837738057, guid: defc4ee67a723124896f6614e79ddbee, type: 3}
   bulletTransform: {fileID: 2938437465168335992}
   timeBetweenShots: 0.5
+  audioSource: {fileID: 0}
 --- !u!1 &2938437464831234011
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   playerSpriteRenderer: {fileID: 2938437465168335996}
+  animator: {fileID: 0}
 --- !u!50 &2938437465168335999
 Rigidbody2D:
   serializedVersion: 4

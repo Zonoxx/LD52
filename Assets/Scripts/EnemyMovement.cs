@@ -8,9 +8,11 @@ public class EnemyMovement : MonoBehaviour
     private Animator animator;
 
     private bool isFlipped;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
         if (player.transform.position.x < transform.position.x)
@@ -44,6 +46,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Player"))
         {
+            audioSource.Play();
             animator.SetTrigger("Death");
             gameObject.GetComponent<Collider2D>().enabled = false;
             Invoke("RemoveGameObject", 0.5f);
