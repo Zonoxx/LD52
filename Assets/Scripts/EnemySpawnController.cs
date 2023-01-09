@@ -33,7 +33,6 @@ public class EnemySpawnController : MonoBehaviour
         Instantiate(lineBird, new Vector3(43, 10, 0.0f), Quaternion.identity);
         Instantiate(linePlayerBird, new Vector3(-20, -20, 0.0f), Quaternion.identity);
         AddAllBirdSpawnersOnce();
-        AddAllBirdSpawnersOnce();
     }
 
     public void AddAllBirdSpawnersOnce()

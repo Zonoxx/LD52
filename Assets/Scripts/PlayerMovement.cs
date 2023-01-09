@@ -2,68 +2,67 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed = 6f;
     [SerializeField]
     private SpriteRenderer playerSpriteRenderer;
     [SerializeField]
     private Animator animator;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        CheckForPlayerInput();
-        CheckForIdle();
+        MovePlayer();
     }
 
-    private void CheckForIdle()
+    private void MovePlayer()
     {
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        SetSpriteDirection(moveHorizontal);
+        SetAnimation(moveHorizontal, moveVertical);
+        Move(moveHorizontal, moveVertical);
+    }
+
+    private void SetSpriteDirection(float moveHorizontal)
+    {
+        if (moveHorizontal < 0)
+        {
+            playerSpriteRenderer.flipX = false;
+        }
+        else if (moveHorizontal > 0)
+        {
+            playerSpriteRenderer.flipX = true;
+        }
+    }
+
+    private void SetAnimation(float moveHorizontal, float moveVertical)
+    {
+        if (moveHorizontal != 0 || moveVertical != 0)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else
         {
             animator.SetBool("isMoving", false);
         }
     }
 
-    private void CheckForPlayerInput()
+    private void Move(float moveHorizontal, float moveVertical)
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(Vector3.up * speed * Time.deltaTime);
-            animator.SetBool("isMoving", true);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector3.down * speed * Time.deltaTime);
-            animator.SetBool("isMoving", true);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-            if (playerSpriteRenderer.flipX)
-            {
-
-                playerSpriteRenderer.flipX = false;
-            }
-            animator.SetBool("isMoving", true);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
-            if (!playerSpriteRenderer.flipX)
-            {
-                playerSpriteRenderer.flipX = true;
-            }
-            animator.SetBool("isMoving", true);
-        }
-
-
-        // if (Input.GetKeyDown(KeyCode.R))
-        // {
-        //     var allWheats = GameObject.FindGameObjectsWithTag("Wheat");
-        //     foreach (var wheat in allWheats)
-        //     {
-        //         wheat.GetComponent<SpriteRenderer>().enabled = false;
-        //         wheat.GetComponent<BoxCollider2D>().enabled = false;
-        //         wheat.tag = "Inactive";
-        //     }
-        // }
+        Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
+        transform.position += movement * speed * Time.deltaTime;
     }
+
+
+
+    // if (Input.GetKeyDown(KeyCode.R))
+    // {
+    //     var allWheats = GameObject.FindGameObjectsWithTag("Wheat");
+    //     foreach (var wheat in allWheats)
+    //     {
+    //         wheat.GetComponent<SpriteRenderer>().enabled = false;
+    //         wheat.GetComponent<BoxCollider2D>().enabled = false;
+    //         wheat.tag = "Inactive";
+    //     }
+    // }
 }
